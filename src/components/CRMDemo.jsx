@@ -265,10 +265,10 @@ const CRMDemo = () => {
                         type="submit"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full bg-gradient-to-r from-primary-600 to-accent-500 hover:from-primary-700 hover:to-accent-600 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2"
+                        className="!w-full !bg-orange-600 dark:bg-gradient-to-r dark:from-primary-600 dark:to-accent-500 hover:!bg-orange-700 dark:hover:from-primary-700 dark:hover:to-accent-600 !text-white !font-bold !py-4 !rounded-xl !shadow-lg hover:!shadow-xl transition-all duration-300 !flex !items-center !justify-center space-x-2"
                       >
                         <CheckCircle className="w-5 h-5" />
-                        <span>Crear Cita</span>
+                        <span>Agendar Cita</span>
                       </motion.button>
                     </form>
                   </div>
