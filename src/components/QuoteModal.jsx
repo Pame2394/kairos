@@ -55,7 +55,8 @@ const QuoteModal = ({ isOpen, onClose }) => {
     setResult(null);
 
     // Llamada al backend /cotizar
-    fetch('http://127.0.0.1:8000/cotizar', {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    fetch(`${API_URL}/cotizar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -90,7 +91,8 @@ const QuoteModal = ({ isOpen, onClose }) => {
   const downloadFile = async (endpoint, filename) => {
     try {
       setLoading(true);
-      const res = await fetch(`http://127.0.0.1:8000/${endpoint}`, {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const res = await fetch(`${API_URL}/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ servicio: formData.service || 'general', horas: 1, complejidad: 'media', cliente: formData.name || 'Cliente' })
