@@ -39,16 +39,12 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
-          >
-            <div className="w-10 h-10 bg-gradient-to-br from-primary-900 to-primary-500 rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl" style={{ fontFamily: 'Georgia, serif' }}>Κ</span>
+          <motion.div whileHover={{ scale: 1.03 }} className="flex items-center space-x-3">
+            <img src="/src/assets/kairos-logo.svg" alt="Kairos logo" className="w-10 h-10 rounded-md shadow" />
+            <div className="flex flex-col leading-tight">
+              <span className="text-lg md:text-xl font-bold text-primary-900 dark:text-white">Kairos Digital Lab</span>
+              <span className="text-xs text-gray-500 dark:text-gray-300">Data • AI • Automation</span>
             </div>
-            <span className="text-xl md:text-2xl font-bold text-primary-900 dark:text-white">
-              Kairos Digital Lab
-            </span>
           </motion.div>
 
           {/* Desktop Menu */}

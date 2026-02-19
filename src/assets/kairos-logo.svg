@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Simple stylized 'K' logo with circuit nodes, adapted for the Kairos brand -->
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#FF8A00"/>
+      <stop offset="1" stop-color="#FF5500"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="16" fill="white"/>
+  <g transform="translate(14,12) scale(0.9)">
+    <path d="M10 6 L34 6 L62 46 L34 86 L10 86 L36 46 Z" fill="url(#g1)" />
+    <!-- circuit nodes -->
+    <circle cx="8" cy="6" r="3.5" fill="#FF8A00" />
+    <circle cx="82" cy="6" r="3.5" fill="#FF8A00" />
+    <circle cx="82" cy="86" r="3.5" fill="#FF8A00" />
+    <circle cx="8" cy="86" r="3.5" fill="#FF8A00" />
+  </g>
+</svg>
