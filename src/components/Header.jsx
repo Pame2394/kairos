@@ -42,7 +42,7 @@ const Header = () => {
           <motion.div whileHover={{ scale: 1.03 }} className="flex items-center space-x-4">
             <img src={logo} alt="Kairos logo" className="w-14 h-14 rounded-lg shadow-md bg-white object-contain" />
             <div className="flex flex-col leading-tight">
-              <span className="text-2xl md:text-3xl font-extrabold" style={{ color: '#153c31' }}>Kairos Digital Lab</span>
+              <span className="text-2xl md:text-3xl font-extrabold" style={{ color: '#133c30', letterSpacing: '-0.5px' }}>Kairos Digital Lab</span>
             </div>
           </motion.div>
 
