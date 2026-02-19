@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import QuoteModal from './QuoteModal';
 import ContactModal from './ContactModal';
+import logo from '../assets/kairos-logo.svg';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,17 +31,16 @@ const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <motion.div whileHover={{ scale: 1.03 }} className="flex items-center space-x-4">
-            <img src="/src/assets/kairos-logo.svg" alt="Kairos logo" className="w-14 h-14 rounded-lg shadow-md bg-white" />
+            <img src={logo} alt="Kairos logo" className="w-14 h-14 rounded-lg shadow-md bg-white object-contain" />
             <div className="flex flex-col leading-tight">
               <span className="text-2xl md:text-3xl font-extrabold" style={{ color: '#153c31' }}>Kairos Digital Lab</span>
             </div>
@@ -132,10 +132,10 @@ const Header = () => {
           </motion.nav>
         )}
       </div>
-      
+
       {/* Quote Modal */}
       <QuoteModal isOpen={isQuoteModalOpen} onClose={() => setIsQuoteModalOpen(false)} />
-      
+
       {/* Contact Modal */}
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </motion.header>
