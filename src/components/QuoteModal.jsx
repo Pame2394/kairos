@@ -11,6 +11,9 @@ const QuoteModal = ({ isOpen, onClose }) => {
     service: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -41,28 +44,73 @@ const QuoteModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Validación simple
     if (!formData.name || !formData.phone || !formData.email || !formData.service) {
       return;
     }
 
-    // Mostrar mensaje de éxito
-    setShowSuccess(true);
-    
-    // Resetear después de 2 segundos
-    setTimeout(() => {
-      setShowSuccess(false);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        service: ''
+    setLoading(true);
+    setError(null);
+    setResult(null);
+
+    // Llamada al backend /cotizar
+    fetch('http://127.0.0.1:8000/cotizar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        servicio: formData.service,
+        horas: 1,
+        complejidad: 'media',
+        cliente: formData.name
+      })
+    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error(`Status ${res.status}`);
+        return await res.json();
+      })
+      .then((data) => {
+        setResult(data);
+        setShowSuccess(true);
+        // no cerrar automáticamente — permitir al usuario descargar
+      })
+      .catch((err) => {
+        console.error(err);
+        setError('Error enviando la solicitud. Intenta de nuevo.');
+      })
+      .finally(() => {
+        setLoading(false);
+        // Reset form after short delay
+        setTimeout(() => {
+          setFormData({ name: '', phone: '', email: '', service: '' });
+        }, 800);
       });
-      setTimeout(() => {
-        onClose();
-      }, 500);
-    }, 2000);
+  };
+
+  const downloadFile = async (endpoint, filename) => {
+    try {
+      setLoading(true);
+      const res = await fetch(`http://127.0.0.1:8000/${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ servicio: formData.service || 'general', horas: 1, complejidad: 'media', cliente: formData.name || 'Cliente' })
+      });
+      if (!res.ok) throw new Error(`Status ${res.status}`);
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      setError('Error descargando el archivo');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -113,6 +161,26 @@ const QuoteModal = ({ isOpen, onClose }) => {
                   <p className="text-green-700 dark:text-green-400 text-sm">
                     Nos contactaremos pronto contigo
                   </p>
+                  {result && (
+                    <div className="mt-2 text-sm text-green-700 dark:text-green-300">
+                      <p><strong>Precio estimado:</strong> ${result.precio}</p>
+                      <p className="mt-1">{result.proforma}</p>
+                      <div className="mt-3 flex space-x-2">
+                        <button
+                          onClick={() => downloadFile('cotizar_pdf', 'cotizacion.pdf')}
+                          className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm"
+                        >
+                          Descargar PDF
+                        </button>
+                        <button
+                          onClick={() => downloadFile('cotizar_excel', 'cotizacion.xlsx')}
+                          className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm"
+                        >
+                          Descargar Excel
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             )}
@@ -208,11 +276,16 @@ const QuoteModal = ({ isOpen, onClose }) => {
               </button>
               <button
                 type="submit"
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-500 hover:from-primary-700 hover:to-accent-600 text-gray-900 dark:text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all"
+                disabled={loading}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-500 hover:from-primary-700 hover:to-accent-600 text-gray-900 dark:text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-60"
               >
-                Enviar Solicitud
+                {loading ? 'Enviando...' : 'Enviar Solicitud'}
               </button>
             </div>
+
+            {error && (
+              <p className="text-red-600 dark:text-red-400 text-sm mt-2">{error}</p>
+            )}
           </form>
         </motion.div>
       </motion.div>
