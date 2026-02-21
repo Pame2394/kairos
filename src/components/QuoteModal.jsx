@@ -63,7 +63,10 @@ const QuoteModal = ({ isOpen, onClose }) => {
         servicio: formData.service,
         horas: 1,
         complejidad: 'media',
-        cliente: formData.name
+        cliente: formData.name,
+        nombre: formData.name,
+        telefono: formData.phone,
+        correo: formData.email
       })
     })
       .then(async (res) => {
@@ -95,7 +98,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
       const res = await fetch(`${API_URL}/${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ servicio: formData.service || 'general', horas: 1, complejidad: 'media', cliente: formData.name || 'Cliente' })
+        body: JSON.stringify({ servicio: formData.service || 'general', horas: 1, complejidad: 'media', cliente: formData.name || 'Cliente', nombre: formData.name || 'Cliente', telefono: formData.phone || 'No especificado', correo: formData.email || 'No especificado' })
       });
       if (!res.ok) throw new Error(`Status ${res.status}`);
       const blob = await res.blob();
