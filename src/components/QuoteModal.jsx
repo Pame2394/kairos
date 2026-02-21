@@ -169,17 +169,19 @@ const QuoteModal = ({ isOpen, onClose }) => {
                   {result && (
                     <div className="mt-2 text-sm text-green-700 dark:text-green-300">
                       <p><strong>Precio estimado:</strong> ${result.precio}</p>
-                      <p className="mt-1">{result.proforma}</p>
+                      <p className="mt-1 text-green-600 dark:text-green-400">
+                        Tu proforma está lista para descargar.
+                      </p>
                       <div className="mt-3 flex space-x-2">
                         <button
                           onClick={() => downloadFile('cotizar_pdf', 'cotizacion.pdf')}
-                          className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm"
+                          className="px-3 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors"
                         >
                           Descargar PDF
                         </button>
                         <button
                           onClick={() => downloadFile('cotizar_excel', 'cotizacion.xlsx')}
-                          className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm"
+                          className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm hover:bg-green-700 transition-colors"
                         >
                           Descargar Excel
                         </button>

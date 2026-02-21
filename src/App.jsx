@@ -6,6 +6,7 @@ import CRMDemo from './components/CRMDemo';
 import Trust from './components/Trust';
 import Footer from './components/Footer';
 import ThemeToggle from './components/ThemeToggle';
+import FormularioProforma from './components/FormularioProforma';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Trust />
       <AboutUs />
       <CRMDemo />
+      <FormularioProforma />
       <Footer />
       <ThemeToggle />
     </div>
