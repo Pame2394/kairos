@@ -26,6 +26,19 @@ const QuoteModal = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
+  const resetAll = () => {
+    setFormData({ name: '', phone: '', email: '', service: '' });
+    setShowSuccess(false);
+    setResult(null);
+    setError(null);
+    setLoading(false);
+  };
+
+  const handleClose = () => {
+    resetAll();
+    onClose();
+  };
+
   const services = [
     'Páginas Web',
     'Automatización de Sistemas',
@@ -127,7 +140,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-hidden"
-        onClick={onClose}
+        onClick={handleClose}
       >
         <motion.div
           initial={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -141,7 +154,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
           <div className="bg-gradient-to-r from-primary-900 to-primary-700 dark:from-primary-800 dark:to-primary-900 px-6 py-4 rounded-t-2xl flex items-center justify-between">
             <h3 className="text-xl font-bold text-white">Solicitar Cotización</h3>
             <button
-              onClick={onClose}
+              onClick={handleClose}
               aria-label="Cerrar"
               className="w-9 h-9 bg-white/80 hover:bg-white rounded-full flex items-center justify-center transition-colors shadow-md ring-1 ring-white/70"
             >
@@ -276,7 +289,7 @@ const QuoteModal = ({ isOpen, onClose }) => {
             <div className="flex space-x-3 pt-2">
               <button
                 type="button"
-                onClick={onClose}
+                onClick={handleClose}
                 className="flex-1 px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
               >
                 Cancelar
